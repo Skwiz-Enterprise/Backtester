@@ -2,7 +2,8 @@ import datetime
 import os.path
 import sys
 import backtrader as bt
-import backtrader_test_strategy as strat
+from src.strategies import SMA as strat
+# import backtrader_test_strategy as strat
 import yfinance as yf
 
 # Create a cerebro entity
@@ -17,14 +18,7 @@ modpath = os.path.dirname(os.path.abspath(sys.argv[0]))
 datapath = os.path.join(modpath, '../SPY.csv')
 
 # Create a Data Feed
-data = bt.feeds.YahooFinanceCSVData(
-    dataname=yf.download('SPY', '2022-01-12', '2023-01-01'),
-    # Do not pass values before this date
-    fromdate=datetime.datetime(2022, 1, 1),
-    # Do not pass values before this date
-    todate=datetime.datetime(2022, 12, 31),
-    # Do not pass values after this date
-    reverse=False)
+data = bt.feeds.PandasData(dataname=yf.download('SPY', '2022-01-12', '2023-01-01'))
 
 # Add the Data Feed to Cerebro
 cerebro.adddata(data)
