@@ -1,12 +1,13 @@
 import backtrader as bt
 import yfinance as yf
 from datetime import datetime
-from src.strategies import RSI, RSI_Custom
+from src.strategies import RSI_Custom
+from strategies import RSI_strat
 
 
 startcash = 1000000
 cerebro = bt.Cerebro()
-cerebro.addstrategy(RSI)
+cerebro.addstrategy(RSI_strat)
 
 data = bt.feeds.PandasData(dataname=yf.download('SPY', '2022-01-12', '2023-01-01'))
 print(data)
