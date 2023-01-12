@@ -1,30 +1,27 @@
-import datetime
-import os.path
-import sys
-import backtrader as bt
-from src.strategies import SMA as strat
-# import backtrader_test_strategy as strat
+from strategies import SMA, RSI_Custom, Buy_Hold
 import yfinance as yf
+import backtrader as bt
+import datetime
+import sys
+sys.path.insert(
+    0, './strategies')
+
 
 # Create a cerebro entity
 cerebro = bt.Cerebro()
 
 # Add a strategy
-cerebro.addstrategy(strat.SMAStrategy)
-
-# Datas are in a subfolder of the samples. Need to find where the script is
-# because it could have been called from anywhere
-modpath = os.path.dirname(os.path.abspath(sys.argv[0]))
-datapath = os.path.join(modpath, '../SPY.csv')
+cerebro.addstrategy(RSI_Custom.RSICustom)
 
 # Create a Data Feed
-data = bt.feeds.PandasData(dataname=yf.download('SPY', '2022-01-12', '2023-01-01'))
+data = bt.feeds.PandasData(dataname=yf.download(
+    'TSLA', '2022-01-12', '2023-01-01'))
 
 # Add the Data Feed to Cerebro
 cerebro.adddata(data)
 
 # Set our desired cash start
-cerebro.broker.setcash(100000.0)
+cerebro.broker.setcash(10000000.0)
 
 # Set the commission - 0.1% ... divide by 100 to remove the %
 cerebro.broker.setcommission(commission=0.001)
