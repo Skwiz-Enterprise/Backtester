@@ -1,10 +1,6 @@
 from strategies import SMA, RSI_Custom, Buy_Hold
 import yfinance as yf
 import backtrader as bt
-import datetime
-import sys
-sys.path.insert(
-    0, './strategies')
 
 
 # Create a cerebro entity
