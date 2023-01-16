@@ -1,5 +1,5 @@
 
-g = [
+dataPrices = [
     566.710022,
     564.229980,
     549.919983,
@@ -21,10 +21,11 @@ g = [
     492.429993,
     505.130005,
 ]
+
 perChanges = []
-for index in range(len(g)):
+for index in range(len(dataPrices)):
     if index > 0 and index <= 22:
-        perChanges.append((g[index]-g[index-1]) / g[index-1])
+        perChanges.append((dataPrices[index]-dataPrices[index-1]) / dataPrices[index-1])
 posChanges = []
 negChanges = []
 for percent in perChanges:
@@ -32,4 +33,11 @@ for percent in perChanges:
         negChanges.append(percent)
     else:
         posChanges.append(percent)
-print(len(posChanges) + len(negChanges))
+posAvg = sum(posChanges) / len(perChanges)
+negAvg = (sum(negChanges) / len(perChanges)) * -1
+
+rs = posAvg / negAvg
+
+rsi = 100 - (100 / (1 + rs))
+
+print(rsi)
